@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      Body{
+        background-color: black;
+      }
+      p{
+        color:white;
+      }
+      .move-button{
+        height:120px;
+        width:120px;
+        border-color: rgb(255, 255, 255);
+        border-width: 2px;
+        background-color: black;
+        border-radius: 60px;
+        border-style:solid;
+      
+      }
+      .move-img{
+        height:50px;
+        margin-bottom: 10px;
+      }
+      .moves-div{
+        display:flex;
+        column-gap: 20px;
+
+      }
+      .js-result{
+        font-size: 50px;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Rock Paper Scissors</p>
+    <div class="moves-div">
+    <div class="rock-div"><button class="move-button"onclick="
+    move='rock';
+      compMove1=compMoveSelector();
+      resultGen('Rock');
+      
+      ;
+      console.log(n);
+      "><img class="move-img"src="rock-emoji.png"></button></div>
+
+      
+       <div><button class="move-button"onclick="
+       move='paper';
+      compMove1=compMoveSelector();
+      resultGen('Paper');
+      "><img class="move-img"src="paper-emoji.png"></button></div>
+
+      <div> <button class="move-button"onclick="
+       move='Scissors';
+      compMove1=compMoveSelector();
+      resultGen('Scissors');
+      console.log(n);
+      
+      "><img src="scissors-emoji.png" class="move-img"></button></div>
+      </div>
+      <p class="js-result"></p>
+      <p class="js-moves"></p>
+      <p class="js-score"></p>
+      <button onclick="
+       score.loss=0;
+       score.win=0;
+       score.tie=0;
+        document.querySelector('.js-score').innerHTML=` Win: ${score.win}   Loss: ${score.loss}    Tie: ${score.tie}`;
+        localStorage.setItem('score', JSON.stringify(score));
+      ">Reset Score</button>
+      
+      
+    
+
+  </body>
+  <script>
+    let move='';
+    let score = JSON.parse(localStorage.getItem('score')) || {
+       loss:0,
+       win:0,
+       tie:0,
+    };
+     document.querySelector('.js-score').innerHTML=` Win: ${score.win}   Loss: ${score.loss}    Tie: ${score.tie}`;
+    let compMove='';
+    let result='';
+    let n=null;
+    function compMoveSelector(){
+       n=Math.random();
+      
+      if(n<0.333333333)
+        compMove='Rock';
+      else if(n>0.33333333 && n<0.66666666666)
+        compMove='Paper';
+      else if(n>0.66666666666666)
+        compMove='Scissors';
+       return compMove;
+
+    }
+    function resultGen(move){
+      if(move=='Rock')
+      {
+        if(compMove1=='Rock')
+        result='win';
+        else if(compMove1=='Paper')
+        result='Loose';
+        else 
+        result='win';
+       
+      } 
+      else if(move=='Paper')
+      {
+        if(compMove1=='Rock')
+        result='win';
+        else if(compMove1=='Paper')
+        result='tie';
+        else 
+        result='Loose';
+       
+      } 
+      else if(move=='Scissors')
+      {
+        if(compMove1=='Rock')
+        result='Loose';
+        else if(compMove1=='Paper')
+        result='win';
+        else 
+        result='tie';
+       
+      } 
+      if(result=='win')
+        score.win++;
+      else if(result=='Loose')
+        score.loss++;
+      else 
+        score.tie++;
+      
+
+      localStorage.setItem('score', JSON.stringify(score))
+     Update();
+      
+
+    }
+     function Update()
+    {
+       document.querySelector('.js-score').innerHTML=` Win: ${score.win}   Loss: ${score.loss}    Tie: ${score.tie}`;
+       document.querySelector('.js-result').innerHTML= result.toUpperCase();
+      document.querySelector('.js-moves').innerHTML=` Your move: ${move} Computer move: ${compMove}`;
+    }
+    
+  </script>
+
+</html>
